@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
-import * as PG from '../services/binService';
+import * as db from '../services';
 import { Bin } from '../models/Bin';
+import { parsePath } from '../../utils/helpers';
+import { RequestDBData } from '../types';
 
 export const createRequest = async (req: Request, res: Response) => {
   const binPath = req.params.binPath;
@@ -11,7 +13,7 @@ export const createRequest = async (req: Request, res: Response) => {
 
   let bin: Bin | null;
   try {
-    bin = await PG.getBin(binPath);
+    bin = await db.getBin(binPath);
 
     if (!bin) {
       return res
@@ -19,12 +21,27 @@ export const createRequest = async (req: Request, res: Response) => {
         .json({ message: `No bin with path ${binPath} found.` });
     }
 
-    // Bin found so we can save the request data
+    const { ip, headers, method, body, query } = req;
+    let { path } = req;
+    path = parsePath(path, binPath);
+
+    const data: RequestDBData = {
+      httpMethod: method,
+      httpPath: path,
+      requestData: {
+        path,
+        headers,
+        method,
+        body,
+        query,
+      },
+    };
+
+    const request = await db.createRequest(bin, data);
+    res.status(200).json(request);
   } catch (err: unknown) {
     if (err instanceof Error) {
-      return res.status(400).json({ message: err.message });
+      res.status(400).json({ message: err.message });
     }
   }
-
-  res.status(200).json({ success: true });
 };

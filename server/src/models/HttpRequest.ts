@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
+  Generated,
 } from 'typeorm';
 import { Bin } from './Bin';
 
@@ -13,7 +14,11 @@ export class HttpRequest {
   id: number;
 
   @Column()
-  mongoId: string;
+  @Generated('uuid')
+  publicId: number;
+
+  @Column('jsonb', { nullable: false })
+  requestData: string;
 
   @CreateDateColumn()
   receivedAt: Date;

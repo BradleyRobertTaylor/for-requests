@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import * as PG from '../services/binService';
+import * as db from '../services';
 
 export const getAllBins = async (_: Request, res: Response) => {
-  const bins = await PG.getAllBins();
+  const bins = await db.getAllBins();
   res.json(bins);
 };
 
 export const createBin = async (_: Request, res: Response) => {
-  const bin = await PG.createBin();
+  const bin = await db.createBin();
   res.json(bin);
 };
 
@@ -18,6 +18,6 @@ export const deleteBin = async (req: Request, res: Response) => {
     return res.status(400).json({ message: 'Bin path is required.' });
   }
 
-  await PG.deleteBin(binPath);
+  await db.deleteBin(binPath);
   res.status(200).json({ message: 'Bin was successfully deleted.' });
 };

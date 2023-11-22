@@ -7,6 +7,7 @@ import binRouter from './routes/binRouter';
 import requestRouter from './routes/requestRouter';
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 PGDataSource.initialize()
