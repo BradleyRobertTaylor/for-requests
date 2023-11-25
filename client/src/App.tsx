@@ -9,7 +9,7 @@ function App() {
     <div className="bg-[#171212] p-4 h-screen">
       <Header />
       <Routes>
-        <Route path="/buckets" element={<BinsPage />} />
+        <Route path="/bins" element={<BinsPage />} />
         <Route path="/" element={<Hero />} />
       </Routes>
     </div>

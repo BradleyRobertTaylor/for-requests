@@ -1,4 +1,12 @@
-import { TrashIcon } from '@heroicons/react/24/outline';
+import {
+  ClipboardIcon,
+  DocumentDuplicateIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline';
+import EndpointHome from './EndpointHome';
+import Divider from './ui/Divider';
+import MainSectionCard from './ui/MainSectionCard';
+import RequestItem from './RequestItem';
 
 const requests = [
   {
@@ -29,8 +37,8 @@ const requests = [
 
 function BinsPage() {
   return (
-    <main className="flex mt-4">
-      <div className="w-1/3">
+    <main className="flex">
+      <div className="mt-4 w-1/3">
         <div className="flex gap-2 mb-4">
           <input
             type="text"
@@ -62,7 +70,12 @@ function BinsPage() {
           </ul>
         </div>
       </div>
-      <div className="grow"></div>
+      <Divider className="bg-neutral-700 w-[1px] aspect-square ml-4" />
+      <div className="overflow-hidden overflow-y-scroll">
+        <MainSectionCard>
+          {true ? <RequestItem /> : <EndpointHome />}
+        </MainSectionCard>
+      </div>
     </main>
   );
 }

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import * as db from '../services';
 import { Bin } from '../models/Bin';
 import { parsePath } from '../../utils/helpers';
-import { RequestDBData } from '../types';
+import { RequestInputData } from '../types';
 
 export const createRequest = async (req: Request, res: Response) => {
   const binPath = req.params.binPath;
@@ -25,7 +25,7 @@ export const createRequest = async (req: Request, res: Response) => {
     let { path } = req;
     path = parsePath(path, binPath);
 
-    const data: RequestDBData = {
+    const data: RequestInputData = {
       httpMethod: method,
       httpPath: path,
       requestData: {

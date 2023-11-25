@@ -1,9 +1,9 @@
-type BucketItemProps = {
+type BinItemProps = {
   path: string;
   onClick: () => void;
 };
 
-function BucketItem({ path, onClick }: BucketItemProps) {
+function BinItem({ path, onClick }: BinItemProps) {
   return (
     <li onClick={onClick}>
       <span>{path}</span>
@@ -11,4 +11,4 @@ function BucketItem({ path, onClick }: BucketItemProps) {
   );
 }
 
-export default BucketItem;
+export default BinItem;

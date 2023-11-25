@@ -15,7 +15,7 @@ function Hero() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link
-              to="/buckets"
+              to="/bins"
               className="bg-[#5D3163] hover:bg-[#46244A] py-3 px-4 text-neutral-300 font-medium rounded-full transition-colors"
             >
               Get started
