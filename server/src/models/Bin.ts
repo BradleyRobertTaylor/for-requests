@@ -23,5 +23,5 @@ export class Bin {
   @OneToMany(() => HttpRequest, (request) => request.bin, {
     onDelete: 'CASCADE',
   })
-  binsRequests: HttpRequest[];
+  requests: HttpRequest[];
 }

@@ -1,3 +1,4 @@
 export const parsePath = (path: string, binPath: string) => {
-  return path.split(`/${binPath}`).join('');
+  const parsedPath = path.split(`/${binPath}`).join('');
+  return parsedPath === '' ? '/' : parsedPath;
 };

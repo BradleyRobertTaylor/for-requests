@@ -1,17 +1,37 @@
 import { PGDataSource } from '../db/data-source';
 import { Bin } from '../models/Bin';
 import { HttpRequest } from '../models/HttpRequest';
-import { RequestInputData } from '../types';
+import { Optional, RequestInputData } from '../types';
+import * as db from '../services';
 
 export const createRequest = async (
-  bin: Bin,
+  binPath: string,
   { httpPath, requestData, httpMethod }: RequestInputData,
 ) => {
-  const request = new HttpRequest();
-  request.bin = bin;
+  const bin = await db.getBin(binPath);
+  let request: Optional<HttpRequest, 'id' | 'bin'> = new HttpRequest();
+  request.bin = bin!;
   request.httpPath = httpPath;
   request.httpMethod = httpMethod;
-  request.requestData = JSON.stringify(requestData);
+  request.requestData = requestData;
 
-  return await PGDataSource.getRepository(HttpRequest).save(request);
+  request = await PGDataSource.getRepository(HttpRequest).save(request);
+  delete request.id;
+  delete request.bin;
+  return request;
+};
+
+export const getRequests = async (bin: Bin) => {
+  let requests: Optional<HttpRequest, 'id'>[] =
+    await PGDataSource.createQueryBuilder()
+      .relation(Bin, 'binsRequests')
+      .of(bin)
+      .loadMany();
+
+  requests = requests.map((request) => {
+    delete request.id;
+    return request;
+  });
+
+  return requests;
 };

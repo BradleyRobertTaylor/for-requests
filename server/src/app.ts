@@ -11,13 +11,13 @@ app.use(express.json());
 app.use(cors());
 
 PGDataSource.initialize()
-  .then(async () => {
+  .then(() => {
     console.log('Connected to Postgres.');
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.error(error));
 
-app.use('/', requestRouter);
 app.use('/api', binRouter);
+app.use('/', requestRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

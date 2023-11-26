@@ -2,17 +2,32 @@ import { PGDataSource } from '../db/data-source';
 import { Bin } from '../models/Bin';
 
 export const getAllBins = async () => {
-  const bins = await PGDataSource.getRepository(Bin).find();
+  const bins = await PGDataSource.getRepository(Bin)
+    .createQueryBuilder('bin')
+    .select(['bin.binPath', 'bin.createdAt'])
+    .getMany();
   return bins;
 };
 
+export const getBinWithRequests = async (binPath: string) => {
+  const bin = await PGDataSource.getRepository(Bin)
+    .createQueryBuilder('bin')
+    .leftJoinAndSelect('bin.requests', 'http_request')
+    .where('bin.binPath = :binPath', { binPath })
+    .getOne();
+  return bin;
+};
+
 export const getBin = async (binPath: string) => {
-  const bin = await PGDataSource.getRepository(Bin).findOneBy({ binPath });
+  const bin = await PGDataSource.getRepository(Bin)
+    .createQueryBuilder('bin')
+    .where('bin.binPath = :binPath', { binPath })
+    .getOne();
   return bin;
 };
 
 export const createBin = async () => {
-  const bin = new Bin();
+  let bin = new Bin();
   await PGDataSource.getRepository(Bin).save(bin);
   return bin;
 };

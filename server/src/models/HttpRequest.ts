@@ -7,6 +7,7 @@ import {
   Generated,
 } from 'typeorm';
 import { Bin } from './Bin';
+import { RequestInputData } from '../types';
 
 @Entity()
 export class HttpRequest {
@@ -17,8 +18,8 @@ export class HttpRequest {
   @Generated('uuid')
   publicId: number;
 
-  @Column('jsonb', { nullable: false })
-  requestData: string;
+  @Column('simple-json', { nullable: false })
+  requestData: RequestInputData['requestData'];
 
   @CreateDateColumn()
   receivedAt: Date;
@@ -29,6 +30,6 @@ export class HttpRequest {
   @Column()
   httpPath: string;
 
-  @ManyToOne(() => Bin, (bin) => bin.binsRequests)
+  @ManyToOne(() => Bin, (bin) => bin.requests)
   bin: Bin;
 }
