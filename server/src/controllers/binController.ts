@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import * as db from '../services';
 
 export const getAllBins = async (_: Request, res: Response) => {
@@ -6,15 +6,30 @@ export const getAllBins = async (_: Request, res: Response) => {
   res.json(bins);
 };
 
-export const getBin = async (req: Request, res: Response) => {
+export const getBin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const binPath = req.params.binPath;
 
   if (!binPath) {
     return res.status(400).json({ message: 'Bin path is required.' });
   }
 
-  const bin = await db.getBinWithRequests(binPath);
-  res.json(bin);
+  try {
+    const bin = await db.getBinWithRequests(binPath);
+    if (!bin) {
+      return res
+        .status(400)
+        .json({ message: `No bin with path ${binPath} found.` });
+    }
+    const { id, ...rest } = bin;
+    res.status(200).json(rest);
+  } catch (err: unknown) {
+    res.status(400);
+    next(err);
+  }
 };
 
 export const createBin = async (_: Request, res: Response) => {

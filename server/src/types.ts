@@ -11,6 +11,10 @@ export type RequestInputData = {
   };
 };
 
+export type ErrorResponse = {
+  error: string;
+};
+
 export type RequestData = RequestInputData['requestData'];
 
 export type BinNoID = Omit<Bin, 'id' | 'binsRequests'>;
