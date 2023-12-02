@@ -1,19 +1,18 @@
-import { Link, useMatch } from 'react-router-dom';
+import { Link, useMatch, useSearchParams } from 'react-router-dom';
 import { classNames } from '../utils/helpers';
 import BinsDropdown from './BinsDropdown';
-import { Bin } from '../types';
 import Divider from './ui/Divider';
+import { Bin } from '../types';
 
-const bins: Bin[] = [
-  { id: 1, binPath: '/fjdkaf92rie2wofudsafd' },
-  { id: 2, binPath: '/fjdkaf92rie2wofudsafd' },
-  { id: 3, binPath: '/fjdkaf92rie2wofudsafd' },
-  { id: 4, binPath: '/fjdkaf92rie2wofudsafd' },
-];
+type HeaderProps = {
+  bins: Bin[];
+  setBins: React.Dispatch<React.SetStateAction<Bin[]>>;
+};
 
-function Header() {
+function Header({ bins, setBins }: HeaderProps) {
   const match = useMatch('/bins');
-
+  const [searchParams] = useSearchParams();
+  const binPath = searchParams.get('bin');
   return (
     <>
       <header>
@@ -24,10 +23,13 @@ function Header() {
           )}
         >
           <Link to="/">
-            <span className="text-xl leading-5 font-logo text-base-content">
-              <span className="text-2xl">F</span>or
-              <span className="text-2xl">R</span>equests
-            </span>
+            <div className="flex gap-2 items-center text-neutral-800 dark:text-inherit text-xl leading-5 font-logo">
+              <img src="light-logo.svg" className="w-8" />
+              <div>
+                <span className="text-2xl">F</span>or
+                <span className="text-2xl">R</span>equests
+              </div>
+            </div>
           </Link>
           {match && (
             <>
@@ -40,7 +42,11 @@ function Header() {
                     type="text"
                     id="url"
                     readOnly
-                    value="http://forrequests.com/bins/fjdkaf92rie2wofudsafd"
+                    value={
+                      binPath
+                        ? `http://forrequests.com/${binPath}`
+                        : 'Select a bin'
+                    }
                     className="block w-full bg-[#171212] rounded-full border-0 px-4 py-1.5 text-neutral-300 shadow-sm ring-1 ring-inset ring-neutral-700 focus:ring-2 focus:ring-inset focus:ring-neutral-600 sm:text-sm sm:leading-6"
                   />
                 </div>

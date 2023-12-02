@@ -8,7 +8,7 @@ function Hero() {
           <h1 className="text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#1DB8AB] via-[#316355] to-[#1DB853] sm:text-6xl">
             Examine webhooks & review HTTP requests
           </h1>
-          <p className="mt-6 text-lg leading-8 text-neutral-400">
+          <p className="mt-6 text-lg leading-8 text-neutral-600 dark:text-neutral-400">
             For Requests provides URL endpoints so software engineers can
             inspect data from HTTP requests and webhooks in a user friendly
             interface.
@@ -16,13 +16,13 @@ function Hero() {
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link
               to="/bins"
-              className="bg-[#5D3163] hover:bg-[#46244A] py-3 px-4 text-neutral-300 font-medium rounded-full transition-colors"
+              className="bg-[#5D0066] hover:bg-[#5B1899] dark:bg-[#5D3163] dark:hover:bg-[#46244A] py-3 px-4 text-neutral-50 dark:text-neutral-300 font-medium rounded-full transition-colors"
             >
               Get started
             </Link>
             <a
               href="#"
-              className="py-3 px-4 text-neutral-300 font-medium rounded-full hover:bg-[#3B3636] transition-colors"
+              className="py-3 px-4 text-neutral-800 hover:bg-neutral-200 dark:text-neutral-300 font-medium rounded-full dark:hover:bg-[#3B3636] transition-colors"
             >
               Github <span aria-hidden="true">→</span>
             </a>

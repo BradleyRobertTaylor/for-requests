@@ -27,7 +27,7 @@ const json = {
   query: { hello: 'world' },
 };
 
-function RequestItem() {
+function RequestData() {
   return (
     <div>
       <JSONData json={json.headers} rootLabel="Headers" />
@@ -36,4 +36,4 @@ function RequestItem() {
   );
 }
 
-export default RequestItem;
+export default RequestData;
