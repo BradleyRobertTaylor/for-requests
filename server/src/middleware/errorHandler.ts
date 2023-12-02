@@ -9,5 +9,5 @@ export const errorHandler: ErrorRequestHandler = (
 ) => {
   const statusCode = res.statusCode || 500;
   res.status(statusCode);
-  res.json({ error: err.message || 'An unknown error occurred!' });
+  res.json({ message: err.message || 'An unknown error occurred!' });
 };

@@ -34,9 +34,10 @@ export const createBin = async () => {
 
 export const deleteBin = async (binPath: string) => {
   const binRepository = PGDataSource.getRepository(Bin);
-  const bin = await binRepository.findOneBy({ binPath });
+  let bin = await binRepository.findOneBy({ binPath });
 
   if (bin) {
-    await binRepository.remove(bin);
+    bin = await binRepository.remove(bin);
+    return bin;
   }
 };

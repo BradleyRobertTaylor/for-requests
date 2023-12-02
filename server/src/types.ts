@@ -12,7 +12,7 @@ export type RequestInputData = {
 };
 
 export type ErrorResponse = {
-  error: string;
+  message: string;
 };
 
 export type RequestData = RequestInputData['requestData'];

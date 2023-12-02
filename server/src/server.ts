@@ -1,16 +1,16 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import app from './app';
-import { PORT } from './config';
-import { PGDataSource } from './db/data-source';
+import { connectDB } from './db/connect';
 
 async function main() {
-  try {
-    await PGDataSource.initialize();
-    console.log('Connected to Postgres.');
-    app.listen(PORT);
+  await connectDB();
+
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`);
-  } catch (err: unknown) {
-    console.error(err);
-  }
+  });
 }
 
 main();

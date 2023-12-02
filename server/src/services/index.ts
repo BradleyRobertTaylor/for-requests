@@ -1,2 +1,2 @@
 export * from './binService';
-export * from './requestService';
+export * from './requestHookService';

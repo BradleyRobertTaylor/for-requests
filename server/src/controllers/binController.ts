@@ -1,74 +1,52 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import * as db from '../services';
+import { asyncHandler } from '../../utils/asyncHandler';
+import { HttpError } from '../models/HttpError';
+import { removeBinId, removeRequestID } from '../../utils/helpers';
 
-export const getAllBins = async (_: Request, res: Response) => {
+export const getAllBins = asyncHandler(async (_: Request, res: Response) => {
   const bins = await db.getAllBins();
   res.json(bins);
-};
+});
 
-export const getBin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const binPath = req.params.binPath;
+export const getBin = asyncHandler(async (req: Request, res: Response) => {
+  const binPath = req.params.binPath!;
 
-  if (!binPath) {
-    return res.status(400).json({ message: 'Bin path is required.' });
-  }
-
-  try {
-    const bin = await db.getBinWithRequests(binPath);
-    if (!bin) {
-      return res
-        .status(400)
-        .json({ message: `No bin with path ${binPath} found.` });
-    }
-    const { id, ...rest } = bin;
-    res.status(200).json(rest);
-  } catch (err: unknown) {
+  const bin = removeBinId(await db.getBinWithRequests(binPath));
+  if (!bin) {
     res.status(400);
-    next(err);
+    throw new HttpError(`No bin with path ${binPath} found.`);
   }
-};
 
-export const createBin = async (_: Request, res: Response) => {
+  res.status(200).json(bin);
+});
+
+export const createBin = asyncHandler(async (_: Request, res: Response) => {
   const bin = await db.createBin();
   res.status(200).json(bin);
-};
+});
 
-export const deleteBin = async (req: Request, res: Response) => {
-  const binPath = req.params.binPath;
+export const deleteBin = asyncHandler(async (req: Request, res: Response) => {
+  const binPath = req.params.binPath!;
 
-  if (!binPath) {
-    return res.status(400).json({ message: 'Bin path is required.' });
+  const bin = await db.deleteBin(binPath);
+  if (!bin) {
+    res.status(400);
+    throw new HttpError(`No bin with path ${binPath} found.`);
   }
 
-  await db.deleteBin(binPath);
   res.status(200).json({ message: 'Bin was successfully deleted.' });
-};
+});
 
-export const getRequests = async (req: Request, res: Response) => {
-  const binPath = req.params.binPath;
+export const getRequests = asyncHandler(async (req: Request, res: Response) => {
+  const binPath = req.params.binPath!;
+  const bin = await db.getBin(binPath);
 
-  if (!binPath) {
-    return res.status(400).json({ message: 'Bin path is required.' });
+  if (!bin) {
+    res.status(400);
+    throw new HttpError(`No bin with path ${binPath} found.`);
   }
 
-  try {
-    const bin = await db.getBin(binPath);
-
-    if (!bin) {
-      return res
-        .status(400)
-        .json({ message: `No bin with path ${binPath} found.` });
-    }
-
-    const requests = await db.getRequests(bin);
-    return res.status(200).json(requests);
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      res.status(400).json({ message: err.message });
-    }
-  }
-};
+  const requests = removeRequestID(await db.getRequests(bin));
+  res.status(200).json(requests);
+});

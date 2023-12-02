@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
-import requestHookRouter from './routes/requestHookRouter';
-import routes from './routes';
+import requestHookRoute from './routes/requestHookRoute';
+import binRoutes from './routes/binRoutes';
 import { errorHandler, notFound } from './middleware';
 
 const app = express();
@@ -10,8 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/api', routes);
-app.use('/', requestHookRouter);
+app.use('/api/bins', binRoutes);
+app.use('/', requestHookRoute);
 
 app.use(notFound);
 app.use(errorHandler);
