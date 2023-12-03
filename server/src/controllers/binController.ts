@@ -1,18 +1,25 @@
 import { Request, Response } from 'express';
-import * as db from '../services';
-import { asyncHandler } from '../../utils/asyncHandler';
+import { asyncHandler } from '../utils/asyncHandler';
+import {
+  createBin,
+  deleteBinByPath,
+  readBinByPath,
+  readBinWithRequestsByPath,
+  readBins,
+} from '../db/binDb';
 import { HttpError } from '../models/HttpError';
-import { removeBinId, removeRequestID } from '../../utils/helpers';
+import { removeBinId, removeRequestID } from '../utils/helpers';
+import { readRequests } from '../db/requestDb';
 
-export const getAllBins = asyncHandler(async (_: Request, res: Response) => {
-  const bins = await db.getAllBins();
+export const getBins = asyncHandler(async (_req: Request, res: Response) => {
+  const bins = await readBins();
   res.json(bins);
 });
 
 export const getBin = asyncHandler(async (req: Request, res: Response) => {
   const binPath = req.params.binPath!;
 
-  const bin = removeBinId(await db.getBinWithRequests(binPath));
+  const bin = removeBinId(await readBinWithRequestsByPath(binPath));
   if (!bin) {
     res.status(400);
     throw new HttpError(`No bin with path ${binPath} found.`);
@@ -21,15 +28,15 @@ export const getBin = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json(bin);
 });
 
-export const createBin = asyncHandler(async (_: Request, res: Response) => {
-  const bin = await db.createBin();
+export const postBin = asyncHandler(async (_req: Request, res: Response) => {
+  const bin = await createBin();
   res.status(200).json(bin);
 });
 
 export const deleteBin = asyncHandler(async (req: Request, res: Response) => {
   const binPath = req.params.binPath!;
 
-  const bin = await db.deleteBin(binPath);
+  const bin = await deleteBinByPath(binPath);
   if (!bin) {
     res.status(400);
     throw new HttpError(`No bin with path ${binPath} found.`);
@@ -40,13 +47,13 @@ export const deleteBin = asyncHandler(async (req: Request, res: Response) => {
 
 export const getRequests = asyncHandler(async (req: Request, res: Response) => {
   const binPath = req.params.binPath!;
-  const bin = await db.getBin(binPath);
+  const bin = await readBinByPath(binPath);
 
   if (!bin) {
     res.status(400);
     throw new HttpError(`No bin with path ${binPath} found.`);
   }
 
-  const requests = removeRequestID(await db.getRequests(bin));
+  const requests = removeRequestID(await readRequests(bin));
   res.status(200).json(requests);
 });

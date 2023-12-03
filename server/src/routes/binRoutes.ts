@@ -1,17 +1,17 @@
 import express from 'express';
 import {
-  getAllBins,
-  createBin,
+  getBins,
+  postBin,
   getBin,
   deleteBin,
   getRequests,
 } from '../controllers/binController';
-import { validateBinPath } from '../middleware';
+import { validateBinPath } from '../middleware/validateBinPath';
 
 const router = express.Router();
 
-router.get('/', getAllBins);
-router.post('/', createBin);
+router.get('/', getBins);
+router.post('/', postBin);
 router.get('/:binPath', validateBinPath, getBin);
 router.delete('/:binPath', validateBinPath, deleteBin);
 

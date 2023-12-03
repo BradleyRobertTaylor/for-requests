@@ -1,5 +1,5 @@
-import { Bin } from '../src/models/Bin';
-import { HttpRequest } from '../src/models/HttpRequest';
+import { Bin } from '../models/Bin';
+import { HttpRequest } from '../models/HttpRequest';
 
 export const parsePath = (path: string, binPath: string) => {
   const parsedPath = path.split(`/${binPath}`).join('');

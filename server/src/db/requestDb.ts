@@ -18,7 +18,7 @@ export const createRequest = async (
   return data;
 };
 
-export const getRequests = async (bin: Bin) => {
+export const readRequests = async (bin: Bin) => {
   const requests: HttpRequest[] = await PGDataSource.createQueryBuilder()
     .relation(Bin, 'requests')
     .of(bin)

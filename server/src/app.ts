@@ -3,7 +3,8 @@ import cors from 'cors';
 
 import requestHookRoute from './routes/requestHookRoute';
 import binRoutes from './routes/binRoutes';
-import { errorHandler, notFound } from './middleware';
+import { notFound } from './middleware/notFound';
+import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
 

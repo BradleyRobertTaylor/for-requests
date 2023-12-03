@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
-import * as db from '../services';
-import { parsePath } from '../../utils/helpers';
+import { parsePath } from '../utils/helpers';
 import { RequestInputData } from '../types';
-import { asyncHandler } from '../../utils/asyncHandler';
+import { asyncHandler } from '../utils/asyncHandler';
 import { HttpError } from '../models/HttpError';
+import { readBinByPath } from '../db/binDb';
+import { createRequest } from '../db/requestDb';
 
-export const createRequest = asyncHandler(
+export const allRequestHook = asyncHandler(
   async (req: Request, res: Response) => {
     const binPath = req.params.binPath!;
 
-    const bin = await db.getBin(binPath);
+    const bin = await readBinByPath(binPath);
 
     if (!bin) {
       res.status(400);
@@ -29,7 +30,7 @@ export const createRequest = asyncHandler(
       },
     };
 
-    const request = await db.createRequest(bin, data);
+    const request = await createRequest(bin, data);
     res.status(200).json(request);
   },
 );

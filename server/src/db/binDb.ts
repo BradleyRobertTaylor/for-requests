@@ -1,7 +1,7 @@
 import { PGDataSource } from '../db/data-source';
 import { Bin } from '../models/Bin';
 
-export const getAllBins = async () => {
+export const readBins = async () => {
   const bins = await PGDataSource.getRepository(Bin)
     .createQueryBuilder('bin')
     .select(['bin.binPath', 'bin.createdAt'])
@@ -9,7 +9,7 @@ export const getAllBins = async () => {
   return bins;
 };
 
-export const getBinWithRequests = async (binPath: string) => {
+export const readBinWithRequestsByPath = async (binPath: string) => {
   const bin = await PGDataSource.getRepository(Bin)
     .createQueryBuilder('bin')
     .leftJoinAndSelect('bin.requests', 'http_request')
@@ -18,7 +18,7 @@ export const getBinWithRequests = async (binPath: string) => {
   return bin;
 };
 
-export const getBin = async (binPath: string) => {
+export const readBinByPath = async (binPath: string) => {
   const bin = await PGDataSource.getRepository(Bin)
     .createQueryBuilder('bin')
     .where('bin.binPath = :binPath', { binPath })
@@ -32,7 +32,7 @@ export const createBin = async () => {
   return bin;
 };
 
-export const deleteBin = async (binPath: string) => {
+export const deleteBinByPath = async (binPath: string) => {
   const binRepository = PGDataSource.getRepository(Bin);
   let bin = await binRepository.findOneBy({ binPath });
 

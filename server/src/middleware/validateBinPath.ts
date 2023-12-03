@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { asyncHandler } from '../../utils/asyncHandler';
+import { asyncHandler } from '../utils/asyncHandler';
 import { HttpError } from '../models/HttpError';
 
 export const validateBinPath = asyncHandler(
