@@ -13,10 +13,10 @@ function BinsDropdown({ bins }: { bins: Bin[] }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-[#171212] px-3 py-2 text-sm font-semibold text-neutral-300 shadow-sm ring-1 ring-inset ring-neutral-700 hover:bg-[#3B3636] transition-colors">
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white dark:bg-[#171212] px-3 py-2 text-sm font-semibold text-neutral-800 dark:text-neutral-300 shadow-sm ring-1 ring-inset ring-neutral-300 dark:ring-neutral-700 transition-colors">
           Bins
           <ChevronDownIcon
-            className="-mr-1 h-5 w-5 text-neutral-300"
+            className="-mr-1 h-5 w-5 text-neutral-800 dark:text-neutral-300"
             aria-hidden="true"
           />
         </Menu.Button>
@@ -31,7 +31,7 @@ function BinsDropdown({ bins }: { bins: Bin[] }) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-[22rem] origin-top-right rounded-md bg-[#110D0D] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-[22rem] origin-top-right rounded-md bg-neutral-100 dark:bg-[#110D0D] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             {bins.map(({ binPath }) => (
               <Menu.Item key={binPath}>
@@ -39,8 +39,8 @@ function BinsDropdown({ bins }: { bins: Bin[] }) {
                   <div
                     className={classNames(
                       active || binPath === binParam
-                        ? 'bg-[#3B3636]'
-                        : 'text-neutral-300',
+                        ? 'bg-white dark:bg-[#3B3636]'
+                        : 'text-neutral-800 dark:text-neutral-300',
                       'flex gap-4 items-center px-4 py-2 text-sm transition-colors',
                     )}
                   >
@@ -57,7 +57,9 @@ function BinsDropdown({ bins }: { bins: Bin[] }) {
                 <Link to="/bins/new">
                   <div
                     className={classNames(
-                      active ? 'bg-[#3B3636]' : 'text-neutral-300',
+                      active
+                        ? 'bg-white dark:bg-[#3B3636]'
+                        : 'text-neutral-800 dark:text-neutral-300',
                       'flex gap-4 justify-center items-center px-4 py-2 text-sm transition-colors',
                     )}
                   >

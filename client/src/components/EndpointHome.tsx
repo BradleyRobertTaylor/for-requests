@@ -8,11 +8,12 @@ function EndpointHome() {
         <h2 className="text-3xl font-light">
           https://for-requests.github.io/jkdlafdafdsafdjo
         </h2>
-        <button className="flex gap-2 items-center py-2 px-2 text-neutral-300 text-xs font-light border border-neutral-700 hover:bg-[#3B3636] transition-colors">
-          Copy <DocumentDuplicateIcon className="text-neutral-300 w-4" />
+        <button className="flex gap-2 items-center py-2 px-2 text-neutral-800 dark:text-neutral-300 text-xs font-light border border-neutral-700 hover:bg-white dark:hover:bg-[#3B3636] transition-colors">
+          Copy
+          <DocumentDuplicateIcon className="text-neutral-800 dark:text-neutral-300 w-4" />
         </button>
       </div>
-      <button className="mb-4 bg-[#5D3163] hover:bg-[#46244A] py-3 px-4 text-neutral-300 font-medium rounded-full transition-colors">
+      <button className="mb-4 bg-[#5D0066] hover:bg-[#750080] dark:bg-[#5D3163] dark:hover:bg-[#46244A] py-3 px-4 text-neutral-50 dark:text-neutral-300 font-medium rounded-full transition-colors">
         Generate Test Request
       </button>
       <div>

@@ -8,7 +8,7 @@ import { useBins } from './hooks/useBins';
 function App() {
   const [bins, setBins] = useBins();
   return (
-    <div className="bg-neutral-300 dark:bg-[#171212] p-4 h-screen">
+    <div className="flex flex-col bg-zinc-200 dark:bg-[#171212] p-4 h-screen overflow-y-hidden">
       <Header bins={bins} setBins={setBins} />
       <Routes>
         <Route path="/bins" element={<BinsPage bins={bins} />} />

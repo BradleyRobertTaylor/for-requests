@@ -5,7 +5,7 @@ type MainSectionCardProps = {
 function MainSectionCard({ children }: MainSectionCardProps) {
   return (
     <div className="grow p-4">
-      <div className="text-neutral-300 bg-[#110D0D] p-4 rounded-2xl">
+      <div className="text-neutral-800 dark:text-neutral-300 bg-neutral-100 dark:bg-[#110D0D] p-4 rounded-2xl">
         {children}
       </div>
     </div>

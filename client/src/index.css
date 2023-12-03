@@ -2,16 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  overflow: hidden;
-  height: 100vh;
+/* html { */
+/*   overflow: hidden; */
+/*   height: 100vh; */
+/* } */
+/**/
+/* body { */
+/*   height: 100vh; */
+/*   overflow: hidden; */
+/* } */
+/**/
+/* .custom-height { */
+/*   height: 76vh; */
+/* } */
+
+.dark .logo {
+  content: url('../public/dark-logo.svg');
 }
 
-body {
-  height: 100vh;
-  overflow: hidden;
-}
-
-.custom-height {
-  height: 76vh;
+.logo {
+  content: url('../public/light-logo.svg');
 }
