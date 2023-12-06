@@ -3,11 +3,17 @@ import { useParams } from 'react-router-dom';
 import RequestList from './RequestList';
 import Header from './Header';
 import EndpointHome from './EndpointHome';
-import RequestData from './RequestData';
+import RequestDataDisplay from './RequestDataDisplay';
+import { useFetchBins } from '../hooks/useFetchBins';
+import { isPathBin } from '../utils/helpers';
 
 function BinsPage() {
-  const { binPath } = useParams();
-  const { requestId } = useParams();
+  const { binPath: activePath, requestId } = useParams();
+  const { data: bins } = useFetchBins();
+
+  if (activePath && !isPathBin(bins, activePath)) {
+    return <h1>Not found</h1>;
+  }
 
   return (
     <>
@@ -25,16 +31,19 @@ function BinsPage() {
             </button>
           </div>
           <div className="h-[80dvh] overflow-hidden overflow-y-auto">
-            {binPath && <RequestList binPath={binPath} />}
+            {activePath && <RequestList binPath={activePath} />}
           </div>
         </div>
         <div className="flex-1 overflow-hidden overflow-y-scroll">
           <MainSectionCard>
-            {binPath ? (
+            {activePath ? (
               requestId ? (
-                <RequestData />
+                <RequestDataDisplay
+                  requestId={requestId}
+                  binPath={activePath}
+                />
               ) : (
-                <EndpointHome binPath={binPath} />
+                <EndpointHome binPath={activePath} />
               )
             ) : null}
           </MainSectionCard>

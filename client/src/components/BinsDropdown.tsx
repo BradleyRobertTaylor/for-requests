@@ -1,13 +1,20 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { ArchiveBoxIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { ArchiveBoxIcon } from '@heroicons/react/24/outline';
 import { classNames } from '../utils/helpers';
-import { Link, useParams } from 'react-router-dom';
 import { Bin } from '../types';
+import BinsDropdownItem from './BinsDropdownItem';
+import { useCreateBin } from '../hooks/useCreateBin';
+import { useNavigate } from 'react-router-dom';
 
-function BinsDropdown({ bins }: { bins?: Bin[] }) {
-  const { binPath: activePath } = useParams();
+const BinsDropdown = ({ bins }: { bins?: Bin[] }) => {
+  const { mutateAsync: createBin } = useCreateBin();
+  const navigate = useNavigate();
+  const handleCreateBin = async () => {
+    const { binPath } = await createBin();
+    navigate(`/bins/${binPath}`);
+  };
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -33,41 +40,22 @@ function BinsDropdown({ bins }: { bins?: Bin[] }) {
         <Menu.Items className="absolute right-0 z-10 mt-2 w-[380px] origin-top-right rounded-md bg-neutral-100 dark:bg-[#110D0D] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             {bins?.map(({ binPath }) => (
-              <Menu.Item key={binPath}>
-                {({ active }) => (
-                  <div
-                    className={classNames(
-                      active || binPath === activePath
-                        ? 'bg-white dark:bg-[#3B3636]'
-                        : 'text-neutral-800 dark:text-neutral-300',
-                      'flex gap-4 items-center justify-center px-4 py-2 text-sm transition-colors'
-                    )}
-                  >
-                    <Link to={`/bins/${binPath}`} className="w-[300px]">
-                      /{binPath}
-                    </Link>
-                    <button>
-                      <TrashIcon className="w-4 hover:text-red-400 transition-colors" />
-                    </button>
-                  </div>
-                )}
-              </Menu.Item>
+              <BinsDropdownItem key={binPath} binPath={binPath} />
             ))}
             <Menu.Item>
               {({ active }) => (
-                <Link to="/bins/new">
-                  <div
-                    className={classNames(
-                      active
-                        ? 'bg-white dark:bg-[#3B3636]'
-                        : 'text-neutral-800 dark:text-neutral-300',
-                      'flex gap-4 justify-center items-center px-4 py-2 text-sm transition-colors'
-                    )}
-                  >
-                    New Bin
-                    <ArchiveBoxIcon className="w-4" />
-                  </div>
-                </Link>
+                <button
+                  onClick={handleCreateBin}
+                  className={classNames(
+                    active
+                      ? 'bg-white dark:bg-[#3B3636]'
+                      : 'text-neutral-800 dark:text-neutral-300',
+                    'w-full flex gap-4 justify-center items-center px-4 py-2 text-sm transition-colors'
+                  )}
+                >
+                  New Bin
+                  <ArchiveBoxIcon className="w-4" />
+                </button>
               )}
             </Menu.Item>
           </div>
@@ -75,6 +63,6 @@ function BinsDropdown({ bins }: { bins?: Bin[] }) {
       </Transition>
     </Menu>
   );
-}
+};
 
 export default BinsDropdown;

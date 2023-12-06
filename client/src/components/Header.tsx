@@ -1,10 +1,10 @@
 import { Link, useMatch, useParams } from 'react-router-dom';
 import { classNames } from '../utils/helpers';
 import BinsDropdown from './BinsDropdown';
-import { useGetBins } from '../hooks/useGetBins';
+import { useFetchBins } from '../hooks/useFetchBins';
 
 function Header() {
-  const { data: bins } = useGetBins();
+  const { data: bins } = useFetchBins();
 
   const match = useMatch('/bins/*');
   const { binPath } = useParams();
