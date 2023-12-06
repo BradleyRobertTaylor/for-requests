@@ -6,10 +6,10 @@ import {
   readBinByPath,
   readBinWithRequestsByPath,
   readBins,
-} from '../db/binDb';
+} from '../db/binDB';
 import { HttpError } from '../models/HttpError';
 import { removeBinId, removeRequestID } from '../utils/helpers';
-import { readRequests } from '../db/requestDb';
+import { readRequests } from '../db/requestDB';
 
 export const getBins = asyncHandler(async (_req: Request, res: Response) => {
   const bins = await readBins();

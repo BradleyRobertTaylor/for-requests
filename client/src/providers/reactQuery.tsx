@@ -1,9 +1,8 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider as QCP } from '@tanstack/react-query';
+import { ReactNode } from 'react';
 
 const queryClient = new QueryClient();
 
-export const QueryProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+export const QueryClientProvider = ({ children }: { children: ReactNode }) => {
+  return <QCP client={queryClient}>{children}</QCP>;
 };

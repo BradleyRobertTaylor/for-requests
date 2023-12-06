@@ -3,8 +3,8 @@ import { parsePath } from '../utils/helpers';
 import { RequestInputData } from '../types';
 import { asyncHandler } from '../utils/asyncHandler';
 import { HttpError } from '../models/HttpError';
-import { readBinByPath } from '../db/binDb';
-import { createRequest } from '../db/requestDb';
+import { readBinByPath } from '../db/binDB';
+import { createRequest } from '../db/requestDB';
 
 export const allRequestHook = asyncHandler(
   async (req: Request, res: Response) => {

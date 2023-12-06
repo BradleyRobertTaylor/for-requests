@@ -1,25 +1,21 @@
-import { Link, useMatch, useSearchParams } from 'react-router-dom';
+import { Link, useMatch, useParams } from 'react-router-dom';
 import { classNames } from '../utils/helpers';
 import BinsDropdown from './BinsDropdown';
-import Divider from './ui/Divider';
-import { Bin } from '../types';
+import { useGetBins } from '../hooks/useGetBins';
 
-type HeaderProps = {
-  bins: Bin[];
-  setBins: React.Dispatch<React.SetStateAction<Bin[]>>;
-};
+function Header() {
+  const { data: bins } = useGetBins();
 
-function Header({ bins, setBins }: HeaderProps) {
-  const match = useMatch('/bins');
-  const [searchParams] = useSearchParams();
-  const binPath = searchParams.get('bin');
+  const match = useMatch('/bins/*');
+  const { binPath } = useParams();
+
   return (
     <>
       <header>
         <nav
           className={classNames(
             'flex justify-between rounded-2xl items-center px-10 py-4 text-neutral-800 dark:text-neutral-300',
-            match ? 'bg-neutral-100 dark:bg-[#110D0D]' : '',
+            match ? 'bg-neutral-100 dark:bg-[#110D0D]' : ''
           )}
         >
           <Link to="/">
@@ -44,7 +40,7 @@ function Header({ bins, setBins }: HeaderProps) {
                     readOnly
                     value={
                       binPath
-                        ? `http://forrequests.com/${binPath}`
+                        ? `https://for-requests.com/${binPath}`
                         : 'Select a bin'
                     }
                     className="block w-full bg-neutral-100 dark:bg-[#171212] rounded-full border-0 px-4 py-1.5 text-neutral-800 dark:text-neutral-300 shadow-sm ring-1 ring-inset ring-neutral-300 dark:ring-neutral-700 focus:ring-2 focus:ring-inset focus:ring-neutral-300 dark:focus:ring-neutral-600 sm:text-sm sm:leading-6"

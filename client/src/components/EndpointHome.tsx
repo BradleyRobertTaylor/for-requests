@@ -1,12 +1,16 @@
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 
-function EndpointHome() {
+type EndpointHomeProps = {
+  binPath: string;
+};
+
+function EndpointHome({ binPath }: EndpointHomeProps) {
   return (
     <>
       <p className="text-xl font-extralight">Your endpoint is</p>
       <div className="flex gap-4 items-center mb-4">
         <h2 className="text-3xl font-light">
-          https://for-requests.github.io/jkdlafdafdsafdjo
+          {`https://for-request.com/${binPath}`}
         </h2>
         <button className="flex gap-2 items-center py-2 px-2 text-neutral-800 dark:text-neutral-300 text-xs font-light border border-neutral-700 hover:bg-white dark:hover:bg-[#3B3636] transition-colors">
           Copy
