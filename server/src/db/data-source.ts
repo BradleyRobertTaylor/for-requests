@@ -11,7 +11,7 @@ export const PGDataSource = new DataSource({
   password: process.env.PG_PASSWORD,
   database: process.env.PG_DATABASE,
   synchronize: true,
-  logging: false,
+  logging: true,
   entities: [HttpRequest, Bin],
   migrations: [],
   subscribers: [],

@@ -20,8 +20,6 @@ export class Bin {
   @CreateDateColumn()
   createdAt: Date;
 
-  @OneToMany(() => HttpRequest, (request) => request.bin, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => HttpRequest, (request) => request.bin)
   requests: HttpRequest[];
 }

@@ -30,6 +30,8 @@ export class HttpRequest {
   @Column()
   httpPath: string;
 
-  @ManyToOne(() => Bin, (bin) => bin.requests)
+  @ManyToOne(() => Bin, (bin) => bin.requests, {
+    onDelete: 'CASCADE',
+  })
   bin: Bin;
 }
