@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Header from './Header';
 
-function Hero() {
+const Hero = () => {
   return (
     <>
       <Header />
@@ -33,6 +33,6 @@ function Hero() {
       </div>
     </>
   );
-}
+};
 
 export default Hero;

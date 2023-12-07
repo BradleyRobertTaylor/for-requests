@@ -21,7 +21,7 @@ const darkTheme = {
   base0F: '#ffffff',
 };
 
-function JSONData({ rootLabel, json }: JSONDataProps) {
+const JSONData = ({ rootLabel, json }: JSONDataProps) => {
   return (
     <JSONTree
       data={json}
@@ -31,10 +31,6 @@ function JSONData({ rootLabel, json }: JSONDataProps) {
       }
     />
   );
-}
-
-// {
-//         base00: '#110D0D',
-//       }
+};
 
 export default JSONData;

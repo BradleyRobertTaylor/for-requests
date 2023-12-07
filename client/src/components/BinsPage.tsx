@@ -5,7 +5,7 @@ import Header from './Header';
 import EndpointHome from './EndpointHome';
 import RequestDataDisplay from './RequestDataDisplay';
 
-function BinsPage() {
+const BinsPage = () => {
   const { binPath: activePath, requestId } = useParams();
 
   return (
@@ -44,6 +44,6 @@ function BinsPage() {
       </main>
     </>
   );
-}
+};
 
 export default BinsPage;

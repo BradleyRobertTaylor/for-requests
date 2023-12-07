@@ -1,20 +1,19 @@
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { useCopy } from '../hooks/useCopy';
+import { BASE_URL } from '../constants/routes';
 
 type EndpointHomeProps = {
   binPath: string;
 };
 
-function EndpointHome({ binPath }: EndpointHomeProps) {
+const EndpointHome = ({ binPath }: EndpointHomeProps) => {
   const { handleCopy, isCopied } = useCopy(binPath);
 
   return (
     <>
       <p className="text-xl font-extralight">Your endpoint is</p>
       <div className="flex gap-4 items-center mb-4">
-        <h2 className="text-3xl font-light">
-          {`https://for-request.com/${binPath}`}
-        </h2>
+        <h2 className="text-3xl font-light">{`${BASE_URL}/${binPath}`}</h2>
         <button
           onClick={handleCopy}
           className="flex gap-2 items-center py-2 px-2 text-neutral-800 dark:text-neutral-300 text-xs font-light border border-neutral-700 hover:bg-white dark:hover:bg-[#3B3636] transition-colors"
@@ -42,6 +41,6 @@ function EndpointHome({ binPath }: EndpointHomeProps) {
       </div>
     </>
   );
-}
+};
 
 export default EndpointHome;

@@ -3,7 +3,7 @@ import { useGetRequests } from '../hooks/useGetRequests';
 import { Link } from 'react-router-dom';
 import { formatTimestamp } from '../utils/formatDateTime';
 
-function RequestList({ binPath }: { binPath: string }) {
+const RequestList = ({ binPath }: { binPath: string }) => {
   const { data: requests } = useGetRequests(binPath);
 
   return (
@@ -28,6 +28,6 @@ function RequestList({ binPath }: { binPath: string }) {
       ))}
     </ul>
   );
-}
+};
 
 export default RequestList;

@@ -3,8 +3,9 @@ import { classNames } from '../utils/helpers';
 import BinsDropdown from './BinsDropdown';
 import { useFetchBins } from '../hooks/useFetchBins';
 import { useCopy } from '../hooks/useCopy';
+import { BASE_URL } from '../constants/routes';
 
-function Header() {
+const Header = () => {
   const { data: bins } = useFetchBins();
 
   const match = useMatch('/bins/*');
@@ -41,11 +42,7 @@ function Header() {
                     type="text"
                     id="url"
                     readOnly
-                    value={
-                      binPath
-                        ? `https://for-requests.com/${binPath}`
-                        : 'Select a bin'
-                    }
+                    value={binPath ? `${BASE_URL}/${binPath}` : 'Select a bin'}
                     className="block w-full bg-neutral-100 dark:bg-[#171212] rounded-full border-0 px-4 py-1.5 text-neutral-800 dark:text-neutral-300 shadow-sm ring-1 ring-inset ring-neutral-300 dark:ring-neutral-700 focus:ring-2 focus:ring-inset focus:ring-neutral-300 dark:focus:ring-neutral-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -63,6 +60,6 @@ function Header() {
       </header>
     </>
   );
-}
+};
 
 export default Header;
