@@ -1,4 +1,5 @@
 import { useGetRequests } from '../hooks/useGetRequests';
+import { formatTimestamp } from '../utils/formatDateTime';
 import JSONData from './JSONData';
 
 type RequestDataDisplayProps = {
@@ -19,14 +20,22 @@ const RequestDataDisplay = ({
     <div>
       {requests
         ?.filter(({ publicId }) => publicId === requestId)
-        .map(({ publicId, requestData, ...rest }) => {
+        .map(({ publicId, requestData, httpMethod, httpPath, receivedAt }) => {
           const { body, headers, query } = requestData;
           return (
-            <div onClick={() => console.log(query)} key={publicId}>
+            <div key={publicId}>
+              <div className="flex gap-4">
+                <div>{httpMethod}</div>
+                <div>{httpPath}</div>
+                {formatTimestamp(receivedAt).map((item, idx) => (
+                  <div key={idx}>{item}</div>
+                ))}
+              </div>
               <JSONData json={headers} rootLabel="Headers" />
               {!isEmptyJSON(query) && (
                 <JSONData json={query} rootLabel="Query Parameters" />
               )}
+              <JSONData json={body} rootLabel="Body" />
             </div>
           );
         })}

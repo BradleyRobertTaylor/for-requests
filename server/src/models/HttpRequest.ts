@@ -5,9 +5,11 @@ import {
   CreateDateColumn,
   ManyToOne,
   Generated,
+  BeforeInsert,
 } from 'typeorm';
 import { Bin } from './Bin';
 import { RequestInputData } from '../types';
+import { generateId } from '../utils/generateId';
 
 @Entity()
 export class HttpRequest {
@@ -15,8 +17,12 @@ export class HttpRequest {
   id: number;
 
   @Column()
-  @Generated('uuid')
-  publicId: number;
+  publicId: string;
+
+  @BeforeInsert()
+  private beforeInsert() {
+    this.publicId = generateId();
+  }
 
   @Column('simple-json', { nullable: false })
   requestData: RequestInputData['requestData'];

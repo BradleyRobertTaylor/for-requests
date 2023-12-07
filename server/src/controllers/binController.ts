@@ -29,7 +29,7 @@ export const getBin = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const postBin = asyncHandler(async (_req: Request, res: Response) => {
-  const bin = await createBin();
+  const bin = removeBinId(await createBin());
   res.status(200).json(bin);
 });
 

@@ -2,12 +2,15 @@ import { Link, useMatch, useParams } from 'react-router-dom';
 import { classNames } from '../utils/helpers';
 import BinsDropdown from './BinsDropdown';
 import { useFetchBins } from '../hooks/useFetchBins';
+import { useCopy } from '../hooks/useCopy';
 
 function Header() {
   const { data: bins } = useFetchBins();
 
   const match = useMatch('/bins/*');
   const { binPath } = useParams();
+
+  const { handleCopy, isCopied } = useCopy(binPath);
 
   return (
     <>
@@ -46,8 +49,11 @@ function Header() {
                     className="block w-full bg-neutral-100 dark:bg-[#171212] rounded-full border-0 px-4 py-1.5 text-neutral-800 dark:text-neutral-300 shadow-sm ring-1 ring-inset ring-neutral-300 dark:ring-neutral-700 focus:ring-2 focus:ring-inset focus:ring-neutral-300 dark:focus:ring-neutral-600 sm:text-sm sm:leading-6"
                   />
                 </div>
-                <button className="bg-[#5D0066] dark:bg-[#5D3163] hover:bg-[#750080] dark:hover:bg-[#46244A] py-2 px-3 text-neutral-50 dark:text-neutral-300 font-medium text-sm rounded-full transition-colors">
-                  Copy
+                <button
+                  onClick={handleCopy}
+                  className="bg-[#5D0066] dark:bg-[#5D3163] hover:bg-[#750080] dark:hover:bg-[#46244A] py-2 px-3 text-neutral-50 dark:text-neutral-300 font-medium text-sm rounded-full transition-colors"
+                >
+                  {isCopied ? 'Copied!' : 'Copy'}
                 </button>
               </div>
               <BinsDropdown bins={bins} />

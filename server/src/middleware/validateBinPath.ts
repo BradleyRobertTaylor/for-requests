@@ -10,13 +10,6 @@ export const validateBinPath = asyncHandler(
       throw new HttpError('Bin path is required');
     }
 
-    const uuidRegex =
-      /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
-
-    if (!uuidRegex.test(binPath)) {
-      throw new HttpError(`Bin path ${binPath} is not a valid format`);
-    }
-
     next();
-  },
+  }
 );

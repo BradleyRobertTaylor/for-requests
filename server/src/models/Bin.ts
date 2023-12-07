@@ -5,8 +5,10 @@ import {
   CreateDateColumn,
   OneToMany,
   Generated,
+  BeforeInsert,
 } from 'typeorm';
 import { HttpRequest } from './HttpRequest';
+import { generateId } from '../utils/generateId';
 
 @Entity()
 export class Bin {
@@ -14,8 +16,12 @@ export class Bin {
   id: number;
 
   @Column()
-  @Generated('uuid')
   binPath: string;
+
+  @BeforeInsert()
+  private beforeInsert() {
+    this.binPath = generateId();
+  }
 
   @CreateDateColumn()
   createdAt: Date;

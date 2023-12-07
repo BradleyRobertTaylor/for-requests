@@ -1,6 +1,7 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { useGetRequests } from '../hooks/useGetRequests';
 import { Link } from 'react-router-dom';
+import { formatTimestamp } from '../utils/formatDateTime';
 
 function RequestList({ binPath }: { binPath: string }) {
   const { data: requests } = useGetRequests(binPath);
@@ -11,8 +12,9 @@ function RequestList({ binPath }: { binPath: string }) {
         <Link key={publicId} to={`/bins/${binPath}/requests/${publicId}`}>
           <li className="flex items-center gap-3 overflow-hidden text-neutral-800 dark:text-neutral-300 bg-neutral-100 dark:bg-[#110D0D] px-4 py-4 shadow sm:rounded-md sm:px-6 hover:bg-white dark:hover:bg-[#3B3636] cursor-pointer">
             <div className="text-sm w-1/5">
-              <div>11-26</div>
-              <div>3:00 AM</div>
+              {formatTimestamp(receivedAt).map((dateTime, idx) => (
+                <div key={idx}>{dateTime}</div>
+              ))}
             </div>
             <div className="w-1/6 text-[#538A42]">{httpMethod}</div>
             <div className="flex-grow overflow-ellipsis overflow-hidden">

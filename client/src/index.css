@@ -16,6 +16,13 @@
 /*   height: 76vh; */
 /* } */
 
+.dark body {
+  background-color: #171212;
+}
+
+body {
+  background-color: #e4e4e7;
+}
 .dark .logo {
   content: url('../public/dark-logo.svg');
 }

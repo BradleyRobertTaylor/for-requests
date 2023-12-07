@@ -4,16 +4,9 @@ import RequestList from './RequestList';
 import Header from './Header';
 import EndpointHome from './EndpointHome';
 import RequestDataDisplay from './RequestDataDisplay';
-import { useFetchBins } from '../hooks/useFetchBins';
-import { isPathBin } from '../utils/helpers';
 
 function BinsPage() {
   const { binPath: activePath, requestId } = useParams();
-  const { data: bins } = useFetchBins();
-
-  if (activePath && !isPathBin(bins, activePath)) {
-    return <h1>Not found</h1>;
-  }
 
   return (
     <>
@@ -34,7 +27,7 @@ function BinsPage() {
             {activePath && <RequestList binPath={activePath} />}
           </div>
         </div>
-        <div className="flex-1 overflow-hidden overflow-y-scroll">
+        <div className="flex-1 h-[90dvh] overflow-hidden overflow-y-scroll">
           <MainSectionCard>
             {activePath ? (
               requestId ? (
