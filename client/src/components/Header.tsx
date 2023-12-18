@@ -37,7 +37,7 @@ const Header = () => {
                 <span className="ml-px block pl-4 text-sm font-medium leading-6 text-neutral-800 dark:text-neutral-300">
                   URL Endpoint
                 </span>
-                <div className="w-96">
+                <div className="w-[350px]">
                   <input
                     type="text"
                     id="url"
