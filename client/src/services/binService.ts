@@ -13,14 +13,32 @@ export const createBin = async () => {
 
 export const fetchBinsRequests = async (selectedBin: string) => {
   const { data } = await axios.get<{ requests: HttpRequest[] }>(
-    `/api/bins/${selectedBin}`
+    `/api/bins/${selectedBin}`,
   );
   return data.requests;
 };
 
 export const deleteBin = async (binPath: string) => {
   const { data } = await axios.delete<{ message: string }>(
-    `/api/bins/${binPath}`
+    `/api/bins/${binPath}`,
+  );
+  return data;
+};
+
+export const sendTestRequest = async (binPath: string) => {
+  const { data } = await axios.post<{ message: string }>(
+    `http://localhost:3000/${binPath}/test`,
+    {
+      test: 'This was a generated test request.',
+      info: 'You can send your own requests to this endpoint.',
+    },
+  );
+  return data;
+};
+
+export const deleteAllRequests = async (binPath: string) => {
+  const { data } = await axios.delete<{ message: string }>(
+    `/api/bins/${binPath}/requests`,
   );
   return data;
 };

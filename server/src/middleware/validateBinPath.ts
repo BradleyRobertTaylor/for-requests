@@ -11,5 +11,5 @@ export const validateBinPath = asyncHandler(
     }
 
     next();
-  }
+  },
 );

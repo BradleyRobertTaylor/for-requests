@@ -5,6 +5,7 @@ import {
   getBin,
   deleteBin,
   getRequests,
+  deleteRequests,
 } from '../controllers/binController';
 import { validateBinPath } from '../middleware/validateBinPath';
 
@@ -17,5 +18,6 @@ router.delete('/:binPath', validateBinPath, deleteBin);
 
 // Bins requests
 router.get('/:binPath/requests', validateBinPath, getRequests);
+router.delete('/:binPath/requests', validateBinPath, deleteRequests);
 
 export default router;

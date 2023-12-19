@@ -1,5 +1,6 @@
 import { PGDataSource } from '../db/data-source';
 import { Bin } from '../models/Bin';
+import { HttpRequest } from '../models/HttpRequest';
 
 export const readBins = async () => {
   const bins = await PGDataSource.getRepository(Bin)
@@ -16,6 +17,18 @@ export const readBinWithRequestsByPath = async (binPath: string) => {
     .where('bin.binPath = :binPath', { binPath })
     .getOne();
   return bin;
+};
+
+export const deleteAllBinsRequests = async (binId: number) => {
+  const repository = PGDataSource.getRepository(HttpRequest);
+  const data = await repository.find({
+    where: {
+      bin: {
+        id: binId,
+      },
+    },
+  });
+  repository.remove(data);
 };
 
 export const readBinByPath = async (binPath: string) => {

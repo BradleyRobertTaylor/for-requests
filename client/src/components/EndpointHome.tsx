@@ -1,6 +1,7 @@
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { useCopy } from '../hooks/useCopy';
 import { BASE_URL } from '../constants/routes';
+import { sendTestRequest } from '../services/binService';
 
 type EndpointHomeProps = {
   binPath: string;
@@ -22,7 +23,10 @@ const EndpointHome = ({ binPath }: EndpointHomeProps) => {
           <DocumentDuplicateIcon className="text-neutral-800 dark:text-neutral-300 w-4" />
         </button>
       </div>
-      <button className="mb-4 bg-[#5D0066] hover:bg-[#750080] dark:bg-[#5D3163] dark:hover:bg-[#46244A] py-3 px-4 text-neutral-50 dark:text-neutral-300 font-medium rounded-full transition-colors">
+      <button
+        onClick={() => sendTestRequest(binPath)}
+        className="mb-4 bg-[#5D0066] hover:bg-[#750080] dark:bg-[#5D3163] dark:hover:bg-[#46244A] py-3 px-4 text-neutral-50 dark:text-neutral-300 font-medium rounded-full transition-colors"
+      >
         Generate Test Request
       </button>
       <div>

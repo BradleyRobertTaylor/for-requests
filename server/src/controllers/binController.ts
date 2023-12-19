@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { asyncHandler } from '../utils/asyncHandler';
 import {
   createBin,
+  deleteAllBinsRequests,
   deleteBinByPath,
   readBinByPath,
   readBinWithRequestsByPath,
@@ -57,3 +58,18 @@ export const getRequests = asyncHandler(async (req: Request, res: Response) => {
   const requests = removeRequestID(await readRequests(bin));
   res.status(200).json(requests);
 });
+
+export const deleteRequests = asyncHandler(
+  async (req: Request, res: Response) => {
+    const binPath = req.params.binPath!;
+    const bin = await readBinByPath(binPath);
+
+    if (!bin) {
+      res.status(400);
+      throw new HttpError(`No bin with path ${binPath} found.`);
+    }
+
+    await deleteAllBinsRequests(bin.id);
+    res.status(200).json({ message: 'Requests successfully deleted' });
+  },
+);
