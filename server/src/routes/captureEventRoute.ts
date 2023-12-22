@@ -1,9 +1,9 @@
 import express from 'express';
-import { allRequestHook } from '../controllers/requestHookController';
+import { captureAllEvents } from '../controllers/captureEventController';
 import { validateBinPath } from '../middleware/validateBinPath';
 
 const router = express.Router();
 
-router.all(`/:binPath*`, validateBinPath, allRequestHook);
+router.all(`/:binPath*`, validateBinPath, captureAllEvents);
 
 export default router;

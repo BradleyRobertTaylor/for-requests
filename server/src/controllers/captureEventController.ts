@@ -5,8 +5,9 @@ import { asyncHandler } from '../utils/asyncHandler';
 import { HttpError } from '../models/HttpError';
 import { readBinByPath } from '../db/binDB';
 import { createRequest } from '../db/requestDB';
+import { pushEventToAllClients } from './sseController';
 
-export const allRequestHook = asyncHandler(
+export const captureAllEvents = asyncHandler(
   async (req: Request, res: Response) => {
     const binPath = req.params.binPath!;
 
@@ -31,6 +32,7 @@ export const allRequestHook = asyncHandler(
     };
 
     const request = await createRequest(bin, data);
-    res.status(200).json(request);
+    pushEventToAllClients({ binPath: bin.binPath });
+    res.status(200).json({ message: 'OK.' });
   },
 );
