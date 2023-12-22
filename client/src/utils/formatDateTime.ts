@@ -1,18 +1,14 @@
 export const formatTimestamp = (timestamp: string) => {
   const dateTime = new Date(timestamp);
-  const time = dateTime.toLocaleTimeString();
-  const date = dateTime.toLocaleDateString();
-  return [formatDate(date), formatTime(time)] as const;
-};
+  const date = dateTime.toLocaleDateString('en-US', {
+    month: 'numeric',
+    day: 'numeric',
+    year: '2-digit',
+  });
+  const time = dateTime.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
-const formatTime = (time: string) => {
-  const [t, suffix] = time.split(' ');
-  time = t.slice(0, t.length - 3);
-
-  return `${time} ${suffix}`;
-};
-
-const formatDate = (date: string) => {
-  const [month, day, year] = date.split('/');
-  return `${month}-${day}-${year.slice(2)}`;
+  return [date, time] as const;
 };

@@ -5,9 +5,12 @@ import Header from './Header';
 import EndpointHome from './EndpointHome';
 import RequestDataDisplay from './RequestDataDisplay';
 import { ClearAllRequests } from './ClearAllRequests';
+import { useUpdateRequests } from '../hooks/useUpdateRequests';
 
 const BinsPage = () => {
   const { binPath: activePath, requestId } = useParams();
+  useUpdateRequests();
+
   return (
     <>
       <Header />
