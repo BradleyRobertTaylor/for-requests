@@ -16,10 +16,6 @@ export const sseController = (req: Request, res: Response) => {
   };
   res.writeHead(200, headers);
 
-  const data = `Hello from your server\n\n`;
-
-  res.write(data);
-
   const clientId = Date.now();
 
   const newClient = {
