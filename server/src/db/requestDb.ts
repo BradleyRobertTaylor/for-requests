@@ -18,6 +18,13 @@ export const createRequest = async (
   return data;
 };
 
+export const readRequestByPublicId = async (publicId: string) => {
+  const requestRepository = PGDataSource.getRepository(HttpRequest);
+  const request = await requestRepository.findOneBy({ publicId });
+
+  return request;
+};
+
 export const readRequests = async (bin: Bin) => {
   const requests: HttpRequest[] = await PGDataSource.createQueryBuilder()
     .relation(Bin, 'requests')
@@ -25,4 +32,14 @@ export const readRequests = async (bin: Bin) => {
     .loadMany();
 
   return requests;
+};
+
+export const deleteRequestByPublicId = async (publicId: string) => {
+  const requestRepository = PGDataSource.getRepository(HttpRequest);
+  let request = await requestRepository.findOneBy({ publicId });
+
+  if (request) {
+    request = await requestRepository.remove(request);
+    return request;
+  }
 };

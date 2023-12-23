@@ -6,18 +6,21 @@ import {
   deleteBin,
   getRequests,
   deleteRequests,
+  deleteRequest,
+  getRequest,
 } from '../controllers/binController';
-import { validateBinPath } from '../middleware/validateBinPath';
 
 const router = express.Router();
 
 router.get('/', getBins);
 router.post('/', postBin);
-router.get('/:binPath', validateBinPath, getBin);
-router.delete('/:binPath', validateBinPath, deleteBin);
+router.get('/:binPath', getBin);
+router.delete('/:binPath', deleteBin);
 
 // Bins requests
-router.get('/:binPath/requests', validateBinPath, getRequests);
-router.delete('/:binPath/requests', validateBinPath, deleteRequests);
+router.get('/:binPath/requests', getRequests);
+router.delete('/:binPath/requests', deleteRequests);
+router.get('/:binPath/requests/:requestId', getRequest);
+router.delete('/:binPath/requests/:requestId', deleteRequest);
 
 export default router;

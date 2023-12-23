@@ -10,7 +10,11 @@ import {
 } from '../db/binDB';
 import { HttpError } from '../models/HttpError';
 import { removeBinId, removeRequestID } from '../utils/helpers';
-import { readRequests } from '../db/requestDB';
+import {
+  deleteRequestByPublicId,
+  readRequestByPublicId,
+  readRequests,
+} from '../db/requestDB';
 
 export const getBins = asyncHandler(async (_req: Request, res: Response) => {
   const bins = await readBins();
@@ -58,6 +62,33 @@ export const getRequests = asyncHandler(async (req: Request, res: Response) => {
   const requests = removeRequestID(await readRequests(bin));
   res.status(200).json(requests);
 });
+
+export const getRequest = asyncHandler(async (req: Request, res: Response) => {
+  const publicId = req.params.requestId!;
+  const request = await readRequestByPublicId(publicId);
+
+  if (!request) {
+    res.status(400);
+    throw new HttpError(`No request with id ${publicId} found.`);
+  }
+
+  res.status(200).json(request);
+});
+
+export const deleteRequest = asyncHandler(
+  async (req: Request, res: Response) => {
+    const publicId = req.params.requestId!;
+
+    const request = await deleteRequestByPublicId(publicId);
+
+    if (!request) {
+      res.status(400);
+      throw new HttpError(`No request with id ${publicId} found.`);
+    }
+
+    res.status(200).json({ message: 'Request successfully deleted.' });
+  },
+);
 
 export const deleteRequests = asyncHandler(
   async (req: Request, res: Response) => {
