@@ -5,5 +5,6 @@ export const useGetRequests = (binPath: string) => {
   return useQuery({
     queryKey: ['requests', binPath],
     queryFn: () => fetchBinsRequests(binPath),
+    retry: false,
   });
 };

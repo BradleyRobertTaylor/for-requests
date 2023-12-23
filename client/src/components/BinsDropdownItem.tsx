@@ -4,9 +4,9 @@ import { classNames } from '../utils/helpers';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { useDeleteBin } from '../hooks/useDeleteBin';
 
-type BinsDropdownItemProps = {
+interface BinsDropdownItemProps {
   binPath: string;
-};
+}
 
 const BinsDropdownItem = ({ binPath }: BinsDropdownItemProps) => {
   const { binPath: activePath } = useParams();
@@ -28,7 +28,7 @@ const BinsDropdownItem = ({ binPath }: BinsDropdownItemProps) => {
             active || binPath === activePath
               ? 'bg-white dark:bg-[#3B3636]'
               : 'text-neutral-800 dark:text-neutral-300',
-            'flex gap-4 items-center justify-center px-4 py-2 text-sm transition-colors'
+            'flex gap-4 items-center justify-center px-4 py-2 text-sm transition-colors',
           )}
         >
           <Link to={`/bins/${binPath}`} className="w-[300px]">

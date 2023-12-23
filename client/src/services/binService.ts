@@ -42,3 +42,17 @@ export const deleteAllRequests = async (binPath: string) => {
   );
   return data;
 };
+
+export const deleteRequest = async (binPath: string, publicId: string) => {
+  const { data } = await axios.delete<{ message: string }>(
+    `/api/bins/${binPath}/requests/${publicId}`,
+  );
+  return data;
+};
+
+export const fetchRequest = async (binPath: string, publicId: string) => {
+  const { data } = await axios.get<HttpRequest>(
+    `/api/bins/${binPath}/requests/${publicId}`,
+  );
+  return data;
+};
