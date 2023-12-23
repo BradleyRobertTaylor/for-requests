@@ -13,14 +13,6 @@ const lightTheme = {
   base0F: '#000000',
 };
 
-const darkTheme = {
-  base00: '#110D0D',
-  base03: '#110D0D',
-  base0B: '#ffffff',
-  base0D: '#ffffff',
-  base0F: '#ffffff',
-};
-
 const JSONData = ({ rootLabel, json }: JSONDataProps) => {
   return (
     <JSONTree
