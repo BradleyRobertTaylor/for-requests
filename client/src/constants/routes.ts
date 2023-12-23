@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://for-request.github.io';
+export const BASE_URL = 'https://cloudexercise.xyz';
