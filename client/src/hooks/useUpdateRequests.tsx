@@ -7,7 +7,7 @@ export const useUpdateRequests = () => {
 
   useEffect(() => {
     if (!listening) {
-      const events = new EventSource('http://localhost:3000/subscribe');
+      const events = new EventSource('http://localhost:3000/api/subscribe');
 
       events.onmessage = (event) => {
         const { binPath }: { binPath: string } = JSON.parse(event.data);

@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/bins', binRoutes);
-app.use('/subscribe', sseRoute);
-app.use('/', captureEventRoute);
+app.use('/api/subscribe', sseRoute);
+app.use('/api', captureEventRoute);
 
 app.use(notFound);
 app.use(errorHandler);
