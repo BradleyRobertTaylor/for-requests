@@ -17,7 +17,7 @@ router.post('/', postBin);
 router.get('/:binPath', getBin);
 router.delete('/:binPath', deleteBin);
 
-// Bins requests
+// Bins events
 router.get('/:binPath/events', getEvents);
 router.delete('/:binPath/events', deleteEvents);
 router.get('/:binPath/events/:eventId', getEvent);
