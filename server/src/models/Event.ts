@@ -4,15 +4,14 @@ import {
   Column,
   CreateDateColumn,
   ManyToOne,
-  Generated,
   BeforeInsert,
 } from 'typeorm';
 import { Bin } from './Bin';
-import { RequestInputData } from '../types';
+import { EventInputData } from '../types';
 import { generateId } from '../utils/generateId';
 
 @Entity()
-export class HttpRequest {
+export class Event {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,7 +24,7 @@ export class HttpRequest {
   }
 
   @Column('simple-json', { nullable: false })
-  requestData: RequestInputData['requestData'];
+  eventData: EventInputData['eventData'];
 
   @CreateDateColumn()
   receivedAt: Date;
@@ -36,7 +35,7 @@ export class HttpRequest {
   @Column()
   httpPath: string;
 
-  @ManyToOne(() => Bin, (bin) => bin.requests, {
+  @ManyToOne(() => Bin, (bin) => bin.events, {
     onDelete: 'CASCADE',
   })
   bin: Bin;

@@ -4,10 +4,9 @@ import {
   Column,
   CreateDateColumn,
   OneToMany,
-  Generated,
   BeforeInsert,
 } from 'typeorm';
-import { HttpRequest } from './HttpRequest';
+import { Event } from './Event';
 import { generateId } from '../utils/generateId';
 
 @Entity()
@@ -26,6 +25,6 @@ export class Bin {
   @CreateDateColumn()
   createdAt: Date;
 
-  @OneToMany(() => HttpRequest, (request) => request.bin)
-  requests: HttpRequest[];
+  @OneToMany(() => Event, (event) => event.bin)
+  events: Event[];
 }

@@ -1,6 +1,6 @@
 import { PGDataSource } from '../db/data-source';
 import { Bin } from '../models/Bin';
-import { HttpRequest } from '../models/HttpRequest';
+import { Event } from '../models/Event';
 
 export const readBins = async () => {
   const bins = await PGDataSource.getRepository(Bin)
@@ -10,17 +10,17 @@ export const readBins = async () => {
   return bins;
 };
 
-export const readBinWithRequestsByPath = async (binPath: string) => {
+export const readBinWithEventsByPath = async (binPath: string) => {
   const bin = await PGDataSource.getRepository(Bin)
     .createQueryBuilder('bin')
-    .leftJoinAndSelect('bin.requests', 'http_request')
+    .leftJoinAndSelect('bin.events', 'events')
     .where('bin.binPath = :binPath', { binPath })
     .getOne();
   return bin;
 };
 
-export const deleteAllBinsRequests = async (binId: number) => {
-  const repository = PGDataSource.getRepository(HttpRequest);
+export const deleteAllBinsEvents = async (binId: number) => {
+  const repository = PGDataSource.getRepository(Event);
   const data = await repository.find({
     where: {
       bin: {

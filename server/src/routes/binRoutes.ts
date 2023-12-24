@@ -4,10 +4,10 @@ import {
   postBin,
   getBin,
   deleteBin,
-  getRequests,
-  deleteRequests,
-  deleteRequest,
-  getRequest,
+  getEvents,
+  deleteEvents,
+  deleteEvent,
+  getEvent,
 } from '../controllers/binController';
 
 const router = express.Router();
@@ -18,9 +18,9 @@ router.get('/:binPath', getBin);
 router.delete('/:binPath', deleteBin);
 
 // Bins requests
-router.get('/:binPath/requests', getRequests);
-router.delete('/:binPath/requests', deleteRequests);
-router.get('/:binPath/requests/:requestId', getRequest);
-router.delete('/:binPath/requests/:requestId', deleteRequest);
+router.get('/:binPath/events', getEvents);
+router.delete('/:binPath/events', deleteEvents);
+router.get('/:binPath/events/:eventId', getEvent);
+router.delete('/:binPath/events/:eventId', deleteEvent);
 
 export default router;

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { parsePath } from '../utils/helpers';
-import { RequestInputData } from '../types';
+import { EventInputData } from '../types';
 import { asyncHandler } from '../utils/asyncHandler';
 import { HttpError } from '../models/HttpError';
 import { readBinByPath } from '../db/binDB';
-import { createRequest } from '../db/requestDB';
+import { createEvent } from '../db/eventDB';
 import { pushEventToAllClients } from './sseController';
 
 export const captureAllEvents = asyncHandler(
@@ -21,17 +21,17 @@ export const captureAllEvents = asyncHandler(
     const { ip, headers, method: httpMethod, body, query, path } = req;
     const httpPath = parsePath(path, binPath);
 
-    const data: RequestInputData = {
+    const data: EventInputData = {
       httpMethod,
       httpPath,
-      requestData: {
+      eventData: {
         headers,
         body,
         query,
       },
     };
 
-    const request = await createRequest(bin, data);
+    const request = await createEvent(bin, data);
     pushEventToAllClients({ binPath: bin.binPath });
     res.status(200).json({ message: 'OK.' });
   },

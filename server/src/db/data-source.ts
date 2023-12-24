@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Bin } from '../models/Bin';
-import { HttpRequest } from '../models/HttpRequest';
+import { Event } from '../models/Event';
 
 export const PGDataSource = new DataSource({
   type: 'postgres',
@@ -12,7 +12,7 @@ export const PGDataSource = new DataSource({
   database: process.env.PG_DATABASE,
   synchronize: true,
   logging: false,
-  entities: [HttpRequest, Bin],
+  entities: [Event, Bin],
   migrations: [],
   subscribers: [],
 });

@@ -2,19 +2,19 @@ import { Request, Response } from 'express';
 import { asyncHandler } from '../utils/asyncHandler';
 import {
   createBin,
-  deleteAllBinsRequests,
+  deleteAllBinsEvents,
   deleteBinByPath,
   readBinByPath,
-  readBinWithRequestsByPath,
+  readBinWithEventsByPath,
   readBins,
 } from '../db/binDB';
 import { HttpError } from '../models/HttpError';
-import { removeBinId, removeRequestID } from '../utils/helpers';
+import { removeBinId, removeEventId } from '../utils/helpers';
 import {
-  deleteRequestByPublicId,
-  readRequestByPublicId,
-  readRequests,
-} from '../db/requestDB';
+  deleteEventByPublicId,
+  readEventByPublicId,
+  readEvents,
+} from '../db/eventDB';
 
 export const getBins = asyncHandler(async (_req: Request, res: Response) => {
   const bins = await readBins();
@@ -24,7 +24,7 @@ export const getBins = asyncHandler(async (_req: Request, res: Response) => {
 export const getBin = asyncHandler(async (req: Request, res: Response) => {
   const binPath = req.params.binPath!;
 
-  const bin = removeBinId(await readBinWithRequestsByPath(binPath));
+  const bin = removeBinId(await readBinWithEventsByPath(binPath));
   if (!bin) {
     res.status(400);
     throw new HttpError(`No bin with path ${binPath} found.`);
@@ -50,7 +50,7 @@ export const deleteBin = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json({ message: 'Bin was successfully deleted.' });
 });
 
-export const getRequests = asyncHandler(async (req: Request, res: Response) => {
+export const getEvents = asyncHandler(async (req: Request, res: Response) => {
   const binPath = req.params.binPath!;
   const bin = await readBinByPath(binPath);
 
@@ -59,38 +59,35 @@ export const getRequests = asyncHandler(async (req: Request, res: Response) => {
     throw new HttpError(`No bin with path ${binPath} found.`);
   }
 
-  const requests = removeRequestID(await readRequests(bin));
-  res.status(200).json(requests);
+  const events = removeEventId(await readEvents(bin));
+  res.status(200).json(events);
 });
 
-export const getRequest = asyncHandler(async (req: Request, res: Response) => {
-  const publicId = req.params.requestId!;
-  const request = await readRequestByPublicId(publicId);
+export const getEvent = asyncHandler(async (req: Request, res: Response) => {
+  const publicId = req.params.eventId!;
+  const event = await readEventByPublicId(publicId);
 
-  if (!request) {
+  if (!event) {
     res.status(400);
-    throw new HttpError(`No request with id ${publicId} found.`);
+    throw new HttpError(`No event with id ${publicId} found.`);
   }
 
-  res.status(200).json(request);
+  res.status(200).json(event);
 });
 
-export const deleteRequest = asyncHandler(
-  async (req: Request, res: Response) => {
-    const publicId = req.params.requestId!;
+export const deleteEvent = asyncHandler(async (req: Request, res: Response) => {
+  const publicId = req.params.eventId!;
+  const event = await deleteEventByPublicId(publicId);
 
-    const request = await deleteRequestByPublicId(publicId);
+  if (!event) {
+    res.status(400);
+    throw new HttpError(`No event with id ${publicId} found.`);
+  }
 
-    if (!request) {
-      res.status(400);
-      throw new HttpError(`No request with id ${publicId} found.`);
-    }
+  res.status(200).json({ message: 'Event successfully deleted.' });
+});
 
-    res.status(200).json({ message: 'Request successfully deleted.' });
-  },
-);
-
-export const deleteRequests = asyncHandler(
+export const deleteEvents = asyncHandler(
   async (req: Request, res: Response) => {
     const binPath = req.params.binPath!;
     const bin = await readBinByPath(binPath);
@@ -100,7 +97,7 @@ export const deleteRequests = asyncHandler(
       throw new HttpError(`No bin with path ${binPath} found.`);
     }
 
-    await deleteAllBinsRequests(bin.id);
-    res.status(200).json({ message: 'Requests successfully deleted' });
+    await deleteAllBinsEvents(bin.id);
+    res.status(200).json({ message: 'Events successfully deleted' });
   },
 );
