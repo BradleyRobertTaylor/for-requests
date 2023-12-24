@@ -27,7 +27,7 @@ export const deleteBin = async (binPath: string) => {
 
 export const sendTestEvent = async (binPath: string) => {
   const { data } = await axios.post<{ message: string }>(
-    `http://localhost:3000/api/${binPath}/test`,
+    `/api/${binPath}/test`,
     {
       test: 'This was a generated test request.',
       info: 'You can send your own requests to this endpoint.',

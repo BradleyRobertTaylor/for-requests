@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from './providers/reactQuery.tsx';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import App from './App.tsx';
 import './index.css';
@@ -15,7 +14,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <QueryClientProvider>
         <SelectedEventProvider>
           <App />
-          <ReactQueryDevtools initialIsOpen={false} />
         </SelectedEventProvider>
       </QueryClientProvider>
     </BrowserRouter>
