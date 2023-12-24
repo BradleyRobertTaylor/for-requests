@@ -3,12 +3,12 @@ export type Bin = {
   createdAt: string;
 };
 
-export type HttpRequest = {
+export type Event = {
   httpMethod: string;
   httpPath: string;
   publicId: string;
   receivedAt: string;
-  requestData: {
+  eventData: {
     headers: Record<string, string>;
     body: Record<string, unknown>;
     query: Record<string, unknown>;

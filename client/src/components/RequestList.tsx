@@ -1,19 +1,15 @@
-import { useGetRequests } from '../hooks/useGetRequests';
+import { useGetEvents } from '../hooks/useGetEvents';
 import { formatTimestamp } from '../utils/formatDateTime';
 import DeleteButton from './DeleteButton';
 
-interface RequestListProps {
+interface EventListProps {
   binPath: string;
-  setSelectedRequest: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedEvent: React.Dispatch<React.SetStateAction<string>>;
   search: string;
 }
 
-const RequestList = ({
-  binPath,
-  setSelectedRequest,
-  search,
-}: RequestListProps) => {
-  const { data: requests, error } = useGetRequests(binPath);
+const EventList = ({ binPath, setSelectedEvent, search }: EventListProps) => {
+  const { data: events, error } = useGetEvents(binPath);
 
   if (error) {
     return null;
@@ -21,7 +17,7 @@ const RequestList = ({
 
   return (
     <ul role="list" className="flex flex-col space-y-3">
-      {requests
+      {events
         ?.filter(({ httpMethod, httpPath }) => {
           return (
             httpMethod.toLowerCase().includes(search) ||
@@ -31,7 +27,7 @@ const RequestList = ({
         .map(({ publicId, httpPath, httpMethod, receivedAt }) => (
           <li
             key={publicId}
-            onClick={() => setSelectedRequest(publicId)}
+            onClick={() => setSelectedEvent(publicId)}
             className="flex items-center gap-3 overflow-hidden text-neutral-800 dark:text-neutral-300 bg-neutral-100 dark:bg-[#110D0D] px-4 py-4 shadow sm:rounded-md sm:px-6 hover:bg-white dark:hover:bg-[#3B3636] cursor-pointer"
           >
             <div className="text-sm w-1/5">
@@ -50,4 +46,4 @@ const RequestList = ({
   );
 };
 
-export default RequestList;
+export default EventList;

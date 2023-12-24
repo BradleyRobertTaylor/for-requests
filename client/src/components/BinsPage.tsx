@@ -1,18 +1,18 @@
 import { useParams } from 'react-router-dom';
 
-import { useUpdateRequests } from '../hooks/useUpdateRequests';
-import { useSelectedRequest } from '../hooks/useSelectedRequest';
+import { useUpdateEvents } from '../hooks/useUpdateEvents';
+import { useSelectedEvent } from '../hooks/useSelectedEvent';
 
 import MainSectionCard from './ui/MainSectionCard';
 import Header from './Header';
 import EndpointHome from './EndpointHome';
-import RequestDataDisplay from './RequestDataDisplay';
+import EventDataDisplay from './EventDataDisplay';
 import EventColumn from './EventColumn';
 
 const BinsPage = () => {
   const { binPath: activePath } = useParams();
-  const { selectedRequest, setSelectedRequest } = useSelectedRequest();
-  useUpdateRequests();
+  const { selectedEvent, setSelectedEvent } = useSelectedEvent();
+  useUpdateEvents();
 
   return (
     <>
@@ -21,7 +21,7 @@ const BinsPage = () => {
         {activePath ? (
           <EventColumn
             activePath={activePath}
-            setSelectedRequest={setSelectedRequest}
+            setSelectedEvent={setSelectedEvent}
           />
         ) : (
           <div className="mt-4 w-[400px]">
@@ -41,10 +41,10 @@ const BinsPage = () => {
         <div className="flex-1 h-[90dvh] overflow-hidden overflow-y-scroll">
           <MainSectionCard>
             {activePath ? (
-              selectedRequest ? (
-                <RequestDataDisplay
+              selectedEvent ? (
+                <EventDataDisplay
                   binPath={activePath}
-                  requestId={selectedRequest}
+                  eventId={selectedEvent}
                 />
               ) : (
                 <EndpointHome binPath={activePath} />

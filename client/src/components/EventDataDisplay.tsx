@@ -1,24 +1,19 @@
-import { useGetRequest } from '../hooks/useGetRequest';
-import { HttpRequest } from '../types';
+import { useGetEvent } from '../hooks/useGetEvent';
+import { Event } from '../types';
 import { formatTimestamp } from '../utils/formatDateTime';
 import JSONData from './JSONData';
 
-type RequestDataDisplayProps = {
+type EventDataDisplayProps = {
   binPath: string;
-  requestId: string;
+  eventId: string;
 };
 
 const isEmptyJSON = (query: Record<string, unknown>) => {
   return Object.keys(query).length === 0;
 };
 
-const RequestData = ({
-  requestData,
-  httpPath,
-  httpMethod,
-  receivedAt,
-}: HttpRequest) => {
-  const { query, body, headers } = requestData;
+const EventData = ({ eventData, httpPath, httpMethod, receivedAt }: Event) => {
+  const { query, body, headers } = eventData;
   return (
     <>
       <div className="flex gap-4">
@@ -37,12 +32,9 @@ const RequestData = ({
   );
 };
 
-const RequestDataDisplay = ({
-  binPath,
-  requestId,
-}: RequestDataDisplayProps) => {
-  const { data: request } = useGetRequest(binPath, requestId);
-  return <div>{request && <RequestData {...request} />}</div>;
+const EventDataDisplay = ({ binPath, eventId }: EventDataDisplayProps) => {
+  const { data: event } = useGetEvent(binPath, eventId);
+  return <div>{event && <EventData {...event} />}</div>;
 };
 
-export default RequestDataDisplay;
+export default EventDataDisplay;

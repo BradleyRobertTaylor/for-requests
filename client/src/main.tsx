@@ -7,16 +7,16 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import App from './App.tsx';
 import './index.css';
-import { SelectedRequestProvider } from './providers/selectedRequest.tsx';
+import { SelectedEventProvider } from './providers/selectedEvent.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider>
-        <SelectedRequestProvider>
+        <SelectedEventProvider>
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
-        </SelectedRequestProvider>
+        </SelectedEventProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>,

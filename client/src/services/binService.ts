@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Bin, HttpRequest } from '../types';
+import { Bin, Event } from '../types';
 
 export const fetchBins = async () => {
   const { data } = await axios.get<Bin[]>('/api/bins');
@@ -11,11 +11,11 @@ export const createBin = async () => {
   return data;
 };
 
-export const fetchBinsRequests = async (selectedBin: string) => {
-  const { data } = await axios.get<{ requests: HttpRequest[] }>(
+export const fetchBinsEvents = async (selectedBin: string) => {
+  const { data } = await axios.get<{ events: Event[] }>(
     `/api/bins/${selectedBin}`,
   );
-  return data.requests;
+  return data.events;
 };
 
 export const deleteBin = async (binPath: string) => {
@@ -25,7 +25,7 @@ export const deleteBin = async (binPath: string) => {
   return data;
 };
 
-export const sendTestRequest = async (binPath: string) => {
+export const sendTestEvent = async (binPath: string) => {
   const { data } = await axios.post<{ message: string }>(
     `http://localhost:3000/api/${binPath}/test`,
     {
@@ -36,23 +36,23 @@ export const sendTestRequest = async (binPath: string) => {
   return data;
 };
 
-export const deleteAllRequests = async (binPath: string) => {
+export const deleteAllEvents = async (binPath: string) => {
   const { data } = await axios.delete<{ message: string }>(
-    `/api/bins/${binPath}/requests`,
+    `/api/bins/${binPath}/events`,
   );
   return data;
 };
 
-export const deleteRequest = async (binPath: string, publicId: string) => {
+export const deleteEvent = async (binPath: string, publicId: string) => {
   const { data } = await axios.delete<{ message: string }>(
-    `/api/bins/${binPath}/requests/${publicId}`,
+    `/api/bins/${binPath}/events/${publicId}`,
   );
   return data;
 };
 
-export const fetchRequest = async (binPath: string, publicId: string) => {
-  const { data } = await axios.get<HttpRequest>(
-    `/api/bins/${binPath}/requests/${publicId}`,
+export const fetchEvent = async (binPath: string, publicId: string) => {
+  const { data } = await axios.get<Event>(
+    `/api/bins/${binPath}/events/${publicId}`,
   );
   return data;
 };

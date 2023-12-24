@@ -1,6 +1,6 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { useDeleteRequest } from '../hooks/useDeleteRequest';
-import { useSelectedRequest } from '../hooks/useSelectedRequest';
+import { useDeleteEvent } from '../hooks/useDeleteEvent';
+import { useSelectedEvent } from '../hooks/useSelectedEvent';
 import { DeleteModal } from './ui/DeleteModal';
 import { useState } from 'react';
 
@@ -10,14 +10,14 @@ interface DeleteButtonProps {
 }
 
 const DeleteButton = ({ binPath, publicId }: DeleteButtonProps) => {
-  const { setSelectedRequest, selectedRequest } = useSelectedRequest();
-  const { mutate: deleteRequest } = useDeleteRequest(binPath, publicId);
+  const { setSelectedEvent, selectedEvent } = useSelectedEvent();
+  const { mutate: deleteEvent } = useDeleteEvent(binPath, publicId);
   const [open, setOpen] = useState(false);
 
   const handleDelete = () => {
-    deleteRequest();
-    if (publicId === selectedRequest) {
-      setSelectedRequest('');
+    deleteEvent();
+    if (publicId === selectedEvent) {
+      setSelectedEvent('');
     }
   };
 

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useDeleteRequests } from '../hooks/useDeleteRequests';
+import { useDeleteEvents } from '../hooks/useDeleteEvents';
 import { DeleteModal } from './ui/DeleteModal';
 
-const ClearAllRequests = ({ binPath }: { binPath: string }) => {
-  const { mutate: deleteAllRequests } = useDeleteRequests(binPath);
+const ClearAllEvents = ({ binPath }: { binPath: string }) => {
+  const { mutate: deleteAllEvents } = useDeleteEvents(binPath);
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ const ClearAllRequests = ({ binPath }: { binPath: string }) => {
         Clear All
       </button>
       <DeleteModal
-        onDelete={deleteAllRequests}
+        onDelete={deleteAllEvents}
         setOpen={setOpen}
         open={open}
         title="Delete all events"
@@ -25,4 +25,4 @@ const ClearAllRequests = ({ binPath }: { binPath: string }) => {
   );
 };
 
-export default ClearAllRequests;
+export default ClearAllEvents;
