@@ -13,7 +13,7 @@ const lightTheme = {
   base0F: '#000000',
 };
 
-const JSONData = ({ rootLabel, json }: JSONDataProps) => {
+export function JSONData({ rootLabel, json }: JSONDataProps) {
   return (
     <JSONTree
       data={json}
@@ -23,6 +23,4 @@ const JSONData = ({ rootLabel, json }: JSONDataProps) => {
       }
     />
   );
-};
-
-export default JSONData;
+}

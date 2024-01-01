@@ -4,11 +4,11 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ArchiveBoxIcon } from '@heroicons/react/24/outline';
 import { classNames } from '../utils/helpers';
 import { Bin } from '../types';
-import BinsDropdownItem from './BinsDropdownItem';
+import { BinsDropdownItem } from './BinsDropdownItem';
 import { useCreateBin } from '../hooks/useCreateBin';
 import { useNavigate } from 'react-router-dom';
 
-const BinsDropdown = ({ bins }: { bins?: Bin[] }) => {
+export function BinsDropdown({ bins }: { bins?: Bin[] }) {
   const { mutateAsync: createBin } = useCreateBin();
   const navigate = useNavigate();
   const handleCreateBin = async () => {
@@ -50,7 +50,7 @@ const BinsDropdown = ({ bins }: { bins?: Bin[] }) => {
                     active
                       ? 'bg-white dark:bg-[#3B3636]'
                       : 'text-neutral-800 dark:text-neutral-300',
-                    'w-full flex gap-4 justify-center items-center px-4 py-2 text-sm transition-colors'
+                    'w-full flex gap-4 justify-center items-center px-4 py-2 text-sm transition-colors',
                   )}
                 >
                   New Bin
@@ -63,6 +63,4 @@ const BinsDropdown = ({ bins }: { bins?: Bin[] }) => {
       </Transition>
     </Menu>
   );
-};
-
-export default BinsDropdown;
+}

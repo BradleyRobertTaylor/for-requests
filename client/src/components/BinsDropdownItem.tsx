@@ -10,7 +10,7 @@ interface BinsDropdownItemProps {
   binPath: string;
 }
 
-const BinsDropdownItem = ({ binPath }: BinsDropdownItemProps) => {
+export function BinsDropdownItem({ binPath }: BinsDropdownItemProps) {
   const { binPath: activePath } = useParams();
   const { mutate: deleteBin } = useDeleteBin(binPath);
   const [open, setOpen] = useState(false);
@@ -56,6 +56,4 @@ const BinsDropdownItem = ({ binPath }: BinsDropdownItemProps) => {
       )}
     </Menu.Item>
   );
-};
-
-export default BinsDropdownItem;
+}

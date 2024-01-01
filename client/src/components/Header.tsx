@@ -1,11 +1,11 @@
 import { Link, useMatch, useParams } from 'react-router-dom';
 import { classNames } from '../utils/helpers';
-import BinsDropdown from './BinsDropdown';
+import { BinsDropdown } from './BinsDropdown';
 import { useFetchBins } from '../hooks/useFetchBins';
 import { useCopy } from '../hooks/useCopy';
 import { BASE_URL } from '../constants/routes';
 
-const Header = () => {
+export function Header() {
   const { data: bins } = useFetchBins();
 
   const match = useMatch('/bins/*');
@@ -19,7 +19,7 @@ const Header = () => {
         <nav
           className={classNames(
             'flex justify-between rounded-2xl items-center px-10 py-4 text-neutral-800 dark:text-neutral-300',
-            match ? 'bg-neutral-100 dark:bg-[#110D0D]' : ''
+            match ? 'bg-neutral-100 dark:bg-[#110D0D]' : '',
           )}
         >
           <Link to="/">
@@ -60,6 +60,4 @@ const Header = () => {
       </header>
     </>
   );
-};
-
-export default Header;
+}

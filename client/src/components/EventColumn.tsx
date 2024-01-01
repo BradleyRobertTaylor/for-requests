@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import ClearAllEvents from './ClearAllEvents';
-import EventList from './RequestList';
+import { ClearAllEvents } from './ClearAllEvents';
+import { EventList } from './EventList';
 import { useGetEvents } from '../hooks/useGetEvents';
 import { Navigate } from 'react-router-dom';
 
@@ -9,7 +9,10 @@ interface EventColumnProps {
   setSelectedEvent: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const EventColumn = ({ activePath, setSelectedEvent }: EventColumnProps) => {
+export function EventColumn({
+  activePath,
+  setSelectedEvent,
+}: EventColumnProps) {
   const [search, setSearch] = useState('');
   const { data: events, error: invalidPathErr } = useGetEvents(activePath);
 
@@ -47,6 +50,4 @@ const EventColumn = ({ activePath, setSelectedEvent }: EventColumnProps) => {
       </div>
     </div>
   );
-};
-
-export default EventColumn;
+}

@@ -1,6 +1,6 @@
 import { useGetEvents } from '../hooks/useGetEvents';
 import { formatTimestamp } from '../utils/formatDateTime';
-import DeleteButton from './DeleteButton';
+import { DeleteButton } from './DeleteButton';
 
 interface EventListProps {
   binPath: string;
@@ -8,7 +8,11 @@ interface EventListProps {
   search: string;
 }
 
-const EventList = ({ binPath, setSelectedEvent, search }: EventListProps) => {
+export function EventList({
+  binPath,
+  setSelectedEvent,
+  search,
+}: EventListProps) {
   const { data: events, error } = useGetEvents(binPath);
 
   if (error) {
@@ -44,6 +48,4 @@ const EventList = ({ binPath, setSelectedEvent, search }: EventListProps) => {
         ))}
     </ul>
   );
-};
-
-export default EventList;
+}

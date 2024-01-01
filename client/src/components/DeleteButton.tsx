@@ -9,7 +9,7 @@ interface DeleteButtonProps {
   publicId: string;
 }
 
-const DeleteButton = ({ binPath, publicId }: DeleteButtonProps) => {
+export function DeleteButton({ binPath, publicId }: DeleteButtonProps) {
   const { setSelectedEvent, selectedEvent } = useSelectedEvent();
   const { mutate: deleteEvent } = useDeleteEvent(binPath, publicId);
   const [open, setOpen] = useState(false);
@@ -40,6 +40,4 @@ const DeleteButton = ({ binPath, publicId }: DeleteButtonProps) => {
       />
     </>
   );
-};
-
-export default DeleteButton;
+}

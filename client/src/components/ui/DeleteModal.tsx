@@ -10,13 +10,13 @@ interface DeleteModalProps {
   onDelete: () => void;
 }
 
-export const DeleteModal = ({
+export function DeleteModal({
   open,
   setOpen,
   onDelete,
   message,
   title,
-}: DeleteModalProps) => {
+}: DeleteModalProps) {
   const cancelButtonRef = useRef(null);
   const handleDelete = () => {
     setOpen(false);
@@ -98,4 +98,4 @@ export const DeleteModal = ({
       </Dialog>
     </Transition.Root>
   );
-};
+}

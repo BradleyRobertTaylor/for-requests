@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDeleteEvents } from '../hooks/useDeleteEvents';
 import { DeleteModal } from './ui/DeleteModal';
 
-const ClearAllEvents = ({ binPath }: { binPath: string }) => {
+export function ClearAllEvents({ binPath }: { binPath: string }) {
   const { mutate: deleteAllEvents } = useDeleteEvents(binPath);
   const [open, setOpen] = useState(false);
 
@@ -23,6 +23,4 @@ const ClearAllEvents = ({ binPath }: { binPath: string }) => {
       />
     </>
   );
-};
-
-export default ClearAllEvents;
+}

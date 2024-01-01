@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import BinsPage from './components/BinsPage';
-import Hero from './components/Hero';
+import { BinsPage } from './components/BinsPage';
+import { Hero } from './components/Hero';
 
 function App() {
   return (

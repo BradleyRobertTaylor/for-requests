@@ -7,7 +7,7 @@ type EndpointHomeProps = {
   binPath: string;
 };
 
-const EndpointHome = ({ binPath }: EndpointHomeProps) => {
+export function EndpointHome({ binPath }: EndpointHomeProps) {
   const { handleCopy, isCopied } = useCopy(binPath);
 
   return (
@@ -45,6 +45,4 @@ const EndpointHome = ({ binPath }: EndpointHomeProps) => {
       </div>
     </>
   );
-};
-
-export default EndpointHome;
+}

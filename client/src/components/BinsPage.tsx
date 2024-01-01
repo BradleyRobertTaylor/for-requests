@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom';
 import { useUpdateEvents } from '../hooks/useUpdateEvents';
 import { useSelectedEvent } from '../hooks/useSelectedEvent';
 
-import MainSectionCard from './ui/MainSectionCard';
-import Header from './Header';
-import EndpointHome from './EndpointHome';
-import EventDataDisplay from './EventDataDisplay';
-import EventColumn from './EventColumn';
+import { MainSectionCard } from './ui/MainSectionCard';
+import { Header } from './Header';
+import { EndpointHome } from './EndpointHome';
+import { EventDataDisplay } from './EventDataDisplay';
+import { EventColumn } from './EventColumn';
 
-const BinsPage = () => {
+export function BinsPage() {
   const { binPath: activePath } = useParams();
   const { selectedEvent, setSelectedEvent } = useSelectedEvent();
   useUpdateEvents();
@@ -57,6 +57,4 @@ const BinsPage = () => {
       </main>
     </>
   );
-};
-
-export default BinsPage;
+}

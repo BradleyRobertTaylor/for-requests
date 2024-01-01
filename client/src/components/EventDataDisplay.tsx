@@ -1,7 +1,7 @@
 import { useGetEvent } from '../hooks/useGetEvent';
 import { Event } from '../types';
 import { formatTimestamp } from '../utils/formatDateTime';
-import JSONData from './JSONData';
+import { JSONData } from './JSONData';
 
 type EventDataDisplayProps = {
   binPath: string;
@@ -32,9 +32,7 @@ const EventData = ({ eventData, httpPath, httpMethod, receivedAt }: Event) => {
   );
 };
 
-const EventDataDisplay = ({ binPath, eventId }: EventDataDisplayProps) => {
+export function EventDataDisplay({ binPath, eventId }: EventDataDisplayProps) {
   const { data: event } = useGetEvent(binPath, eventId);
   return <div>{event && <EventData {...event} />}</div>;
-};
-
-export default EventDataDisplay;
+}
